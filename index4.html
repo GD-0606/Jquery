@@ -1,0 +1,181 @@
+<!-- Ajax Request  -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Intermediate Level in jquery</title>
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      table,
+      th,
+      td {
+        border: 1px solid black;
+      }
+      th,
+      td {
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      #todoActions {
+        display: none;
+      }
+    </style>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      $(document).ready(function () {
+        console.log("ready to play with jquery.");
+        // create the table
+        const table = $("<table></table>");
+        const tableHead = $("<thead></thead>");
+        const tableRow = $("<tr></tr>");
+        tableRow.append("<th>S.N.O</th>");
+        tableRow.append("<th>UserId</th>");
+        tableRow.append("<th>Title</th>");
+        tableRow.append("<th>Completed</th>");
+        tableHead.append(tableRow);
+        table.append(tableHead);
+        // Create table body
+        var tableBody = $("<tbody></tbody>");
+        table.append(tableBody);
+        $("#displayContent").append(table).hide();
+        $("#loadContent").click(function () {
+          const url = "https://jsonplaceholder.typicode.com/todos";
+          //   $("#displayContent").load(url, function (responseTxt, statusTxt, xhr) {
+          //     console.log(xhr);
+          //   });
+          const obj = $.get(
+            url,
+            function (data, statusTxt, xhr) {
+              console.log(typeof data, data);
+              $("#displayContent").show();
+              tableBody.empty();
+              $.each(data, function (ind, post) {
+                const row = $("<tr></tr>");
+                row.append(`<td>${post.id}</td>`);
+                row.append(`<td>${post.userId}</td>`);
+                row.append(`<td>${post.title}</td>`);
+                row.append(`<td>${post.completed}</td>`);
+                tableBody.append(row);
+              });
+              table.append(tableBody);
+              $("#todoActions").show();
+            },
+            "json"
+          );
+          obj.done(function (data, statusTxt, xhr) {
+            $("#success").text(`Success : ${xhr.status} - ${statusTxt}`).css({
+              color: "green",
+            });
+          });
+          obj.fail(function (xhr, statusTxt, errorTxt) {
+            console.log(statusTxt);
+            console.log(xhr.status);
+            $("#error").text(`Error : ${xhr.status} - ${statusTxt}`).css({
+              color: "red",
+            });
+          });
+          obj.always(function () {
+            console.log("Request Completed");
+          });
+        });
+        $("#todoActions").click(function (e) {
+          let url, jqxhr;
+          switch (e.target.id) {
+            case "addTodo":
+              url = "https://jsonplaceholder.typicode.com/todos";
+              jqxhr = $.post(
+                url,
+                {
+                  userId: 10,
+                  id: 201,
+                  title: "watching movies",
+                  completed: false,
+                },
+                function (data, status) {
+                  console.log(data);
+                  alert(status);
+                }
+              );
+
+              break;
+
+            case "updateTodo":
+              url = "https://jsonplaceholder.typicode.com/todos/1";
+              jqxhr = $.ajax({
+                method: "PUT",
+                url: url,
+                data: JSON.stringify({
+                  userId: 10,
+                  id: 1,
+                  title: "watching movies",
+                  completed: false,
+                }),
+                headers: {
+                  "Content-type": "application/json; charset=UTF-8",
+                },
+                success: function (data, statusTxt, xhr) {
+                  console.log(data);
+                  alert(statusTxt);
+                },
+                error: function (xhr, statusTxt, errorTxt) {
+                  console.log(xhr.status);
+                  alert(statusTxt);
+                },
+              });
+              break;
+
+            case "deleteTodo":
+              url = "https://jsonplaceholder.typicode.com/todos/1";
+              jqxhr = $.ajax({
+                url: url,
+                method: "DELETE",
+                success: function (data, statusTxt, xhr) {
+                  alert(statusTxt);
+                  console.log(data);
+                },
+                error: function (xhr, statusTxt, errorTxt) {
+                  alert(statusTxt);
+                  console.log(xhr.status);
+                },
+              });
+
+            default:
+              break;
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Ajax Request</h1>
+    <!-- Use jQuery to make an AJAX request to a public API (e.g., JSONPlaceholder) and display the data in a table format.
+ -->
+    <h4>Ajax methods in jquey.</h4>
+    <ul>
+      <li>load</li>
+      <li>get</li>
+      <li>post</li>
+      <li>ajax</li>
+    </ul>
+    <button type="button" id="loadContent">load the content.</button>
+    <p id="success"></p>
+    <div id="displayContent"></div>
+    <p id="error"></p>
+    <div id="todoActions">
+      <button type="button" id="addTodo">ADD TODO</button>
+      <button type="button" id="deleteTodo">DELETE TODO</button>
+      <button type="button" id="updateTodo">UPDATE TODO</button>
+    </div>
+  </body>
+</html>

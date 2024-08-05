@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Advanced Level in jquery : Form Wizard</title>
+    <style></style>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
+    <script>
+      $(document).ready(function () {
+        const body = $("body");
+        const accessKey = "t1PfWCSogTYq3T3N17BtEcDQDIQ3sICm45mmlksu-Qc";
+        const count = 10;
+        const url = `https://api.unsplash.com/photos/?client_id=${accessKey}&count=${count}`;
+        let photosArr = [];
+        $(window).scroll(function () {
+          console.log("scrolled down", $(window).scrollTop());
+          if (
+            window.innerHeight + $(window).scrollTop() >=
+            document.body.offsetHeight - 100
+          ) {
+            body.append("<div class='container'></div>");
+          }
+        });
+        async function fetchImages() {
+          try {
+            const response = await fetch(url);
+            photosArr = await response.json();
+            console.log(photosArr);
+          } catch (error) {}
+        }
+        fetchImages();
+      });
+    </script>
+  </head>
+  <body>
+    <div class="image_container"></div>
+    <img src="./Blocks-1s-123px.svg" alt="">
+  </body>
+</html>

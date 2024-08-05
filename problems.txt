@@ -1,0 +1,28 @@
+1.AJAX Request
+Q.Use jQuery to make an AJAX request to a public API (e.g., JSONPlaceholder) and display the data in a table format.
+
+2.Accordion Menu
+Q.Create an accordion menu where clicking on a section header expands or collapses the content.
+
+3.Drag and Drop
+Q.Implement a drag-and-drop functionality where you can drag items from one list to another.
+
+4.Modal Window
+Q.Create a modal window that opens when a button is clicked and closes when clicking outside the modal or on a close button.
+
+Advanced Level
+
+1.Form Wizard
+Q.Create a multi-step form wizard with validation on each step before proceeding to the next.
+
+2.Dynamic Content Loading
+Q.Implement infinite scrolling where more content is loaded as the user scrolls down the page.
+
+3.Real-time Search
+Q.Create a real-time search feature that filters a list of items as the user types in an input field.
+
+4.Custom Plugin
+Q.Develop a custom jQuery plugin that can be reused in different projects (e.g., a simple slider or tooltip plugin).
+
+5.Chart Integration
+Q.Integrate a chart library (e.g., Chart.js) with jQuery to display dynamic data from an API in a graphical format.

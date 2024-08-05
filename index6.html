@@ -1,0 +1,88 @@
+<!-- Accordion Menu -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Intermediate Level in jquery</title>
+    <style>
+      .fruit,
+      .vegetable {
+        padding: 5px;
+        text-align: center;
+        color: aliceblue;
+        cursor: pointer;
+      }
+      .fruit {
+        background-color: green;
+      }
+      .vegetable {
+        background-color: blue;
+      }
+      fieldset {
+        width: 300px;
+        height: 400px;
+        display: inline-block;
+        vertical-align: top;
+      }
+    </style>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
+    <script>
+      $(document).ready(function () {
+        const fruits = [
+          "Mango",
+          "Watermelon",
+          "Banana",
+          "Orange",
+          "Apple",
+          "Kiwi",
+        ];
+        const vegetables = [
+          "Carrot",
+          "BeetRoot",
+          "LadyFringer",
+          "Brinjal",
+          "Tomata",
+          "Potato",
+        ];
+        const fruitsContainer = $("#fruits");
+        const vegetablesContainer = $("#vegetables");
+        fruits.forEach((val, ind) => {
+          fruitsContainer.append(`<p class="fruit">${val}</p>`);
+        });
+        vegetables.forEach((val, ind) => {
+          vegetablesContainer.append(`<p class="vegetable">${val}</p>`);
+        });
+        $("#fruits > p, #vegetables > p").draggable({
+          cursor: "move",
+        });
+        $("#vegetables").droppable({
+          accept: "p",
+          drop: function () {
+            alert("dropped");
+          },
+        });
+        $("#draggable").draggable();
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Drag and Drop</h1>
+    <!-- Implement a drag-and-drop functionality where you can drag items from one list to another.
+ -->
+    <div id="draggable">Drag me</div>
+    <div>
+      <fieldset id="fruits">
+        <legend>Fruits</legend>
+      </fieldset>
+      <fieldset id="vegetables">
+        <legend>Vegetables</legend>
+      </fieldset>
+    </div>
+  </body>
+</html>

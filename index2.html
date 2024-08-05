@@ -1,0 +1,186 @@
+<!-- Form Validation -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Handling in jquery</title>
+    <style>
+      .border {
+        border: 1px solid red;
+        margin-bottom: 12px;
+        padding: 10px;
+      }
+      .displayValue {
+        margin-top: 10px;
+        font-weight: bold;
+      }
+    </style>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      $(document).ready(function () {
+        let formData = {
+          name: "",
+          email: "",
+          mobileNumber: "",
+          role: "",
+          message: "",
+        };
+        $("input,select,textarea").on("input", function (e) {
+          switch (e.target.id) {
+            case "name":
+              formData = {
+                ...formData,
+                name: e.target.value,
+              };
+              break;
+            case "email":
+              formData = {
+                ...formData,
+                email: e.target.value,
+              };
+              break;
+            case "mobileNumber":
+              formData = {
+                ...formData,
+                mobileNumber: e.target.value,
+              };
+              break;
+            case "role":
+              formData = {
+                ...formData,
+                role: e.target.value,
+              };
+              break;
+            case "message":
+              formData = {
+                ...formData,
+                message: e.target.value,
+              };
+              break;
+            default:
+          }
+          console.log(formData);
+        });
+
+        $("form").on("submit reset", function (e) {
+          e.preventDefault();
+          if (e.type === "reset") {
+            $("input,select,textarea").val("");
+            formData = {
+              name: "",
+              email: "",
+              mobileNumber: "",
+              role: "",
+              message: "",
+            };
+            console.log(formData);
+          } else if (e.type === "submit") {
+            console.log(formData);
+          }
+        });
+        $("#change").click((e) => {
+          $("#content")
+            .text(
+              "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)."
+            )
+            .addClass("displayValue");
+        });
+
+        $("#addItem,#removeItem").click((e) => {
+          let itemsSize = $("#items>li").length;
+          console.log(itemsSize);
+          const itemsContainer = $("#items");
+          const itemsChildContainer = $("#items>li");
+
+          switch (e.target.id) {
+            case "addItem":
+              itemsContainer.append(
+                `<li id=item${itemsSize}>Item${itemsSize}</li>`
+              );
+              break;
+            case "removeItem":
+              if (itemsSize > 0) {
+                itemsChildContainer.remove(`#item${itemsSize - 1}`);
+              }
+              break;
+            default:
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Form Validation.</h1>
+    <!-- Create a simple form with input fields for name and email. 
+Validate that both fields are not empty when the form is submitted. -->
+    <div>
+      <form>
+        <div>
+          <label for="name">Name:</label> <br />
+          <input type="text" name="name" id="name" required />
+        </div>
+        <div>
+          <label for="email">Email:</label> <br />
+          <input type="email" name="email" id="email" required />
+        </div>
+        <div>
+          <label for="mobileNumber">mobileNumber:</label> <br />
+          <input type="text" name="mobileNumber" id="mobileNumber" required />
+        </div>
+        <div>
+          <label for="role">Role:</label> <br />
+          <select
+            name="role"
+            id="role"
+            style="width: 175px; height: 20px"
+            required
+          >
+            <option value="" disabled selected>Select Role</option>
+            <option value="MERN">MERN</option>
+            <option value="NodeJs">NodeJs</option>
+            <option value="ReactJs">ReactJs</option>
+          </select>
+        </div>
+        <div>
+          <label for="message">Message:</label><br />
+          <textarea name="message" id="message" required></textarea>
+        </div>
+        <button type="submit">submit</button>
+        <button type="reset">Reset</button>
+      </form>
+    </div>
+
+    <!-- Create a button that changes the text of a paragraph when clicked. -->
+    <h1>Change Content.</h1>
+    <div>
+      <p id="content">
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry. Lorem Ipsum has been the industry's standard dummy text ever
+        since the 1500s, when an unknown printer took a galley of type and
+        scrambled it to make a type specimen book. It has survived not only five
+        centuries, but also the leap into electronic typesetting, remaining
+        essentially unchanged. It was popularised in the 1960s with the release
+        of Letraset sheets containing Lorem Ipsum passages, and more recently
+        with desktop publishing software like Aldus PageMaker including versions
+        of Lorem Ipsum.
+      </p>
+      <button id="change" type="button">Change</button>
+    </div>
+
+    <h1>Append/Remove Elements</h1>
+
+    <!-- Create buttons to add and remove list items from an unordered list. -->
+    <div>
+      <ul id="items"></ul>
+      <div>
+        <button id="addItem">add</button>&nbsp;
+        <button id="removeItem">remove</button>
+      </div>
+    </div>
+  </body>
+</html>

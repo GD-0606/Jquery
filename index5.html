@@ -1,0 +1,141 @@
+<!-- Accordion Menu -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Intermediate Level in jquery</title>
+    <style>
+      h1 {
+        text-align: center;
+      }
+      .main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        width: 75%;
+        padding: 10px;
+        border: 2px solid aliceblue;
+        margin-bottom: 2px;
+        background-color: aliceblue;
+      }
+      .question-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      button {
+        border: none;
+        width: 60px;
+        height: 30px;
+        background-color: #007bff;
+        color: white;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      #q1_ans,
+      #q2_ans,
+      #q3_ans {
+        display: none;
+        text-align: justify;
+      }
+    </style>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      $(document).ready(function () {
+        $("button").click(function () {
+          const ansId = $(this).attr("id").replace("_toggle", "_ans");
+          const $ans = $(`#${ansId}`);
+          const $btn = $(this);
+          const isExpanded = $ans.is(":visible");
+          $ans.toggle("1000");
+          $btn.text(isExpanded ? "show" : "hide");
+          $btn.attr("aria-expanded", !isExpanded);
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Accordion Menu</h1>
+    <!-- Create an accordion menu where clicking on a section header expands or collapses the content.
+ -->
+    <div class="main">
+      <div class="container">
+        <div class="question-container">
+          <h3 id="q1">What is Lorem Ipsum?</h3>
+          <button id="q1_toggle" aria-expanded="false">show</button>
+        </div>
+        <div>
+          <p id="q1_ans">
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book. It has survived not
+            only five centuries, but also the leap into electronic typesetting,
+            remaining essentially unchanged. It was popularised in the 1960s
+            with the release of Letraset sheets containing Lorem Ipsum passages,
+            and more recently with desktop publishing software like Aldus
+            PageMaker including versions of Lorem Ipsum.
+          </p>
+        </div>
+      </div>
+      <div class="container">
+        <div class="question-container">
+          <h3 id="q2">Why do we use it?</h3>
+          <button id="q2_toggle">show</button>
+        </div>
+        <div>
+          <p id="q2_ans">
+            It is a long established fact that a reader will be distracted by
+            the readable content of a page when looking at its layout. The point
+            of using Lorem Ipsum is that it has a more-or-less normal
+            distribution of letters, as opposed to using 'Content here, content
+            here', making it look like readable English. Many desktop publishing
+            packages and web page editors now use Lorem Ipsum as their default
+            model text, and a search for 'lorem ipsum' will uncover many web
+            sites still in their infancy. Various versions have evolved over the
+            years, sometimes by accident, sometimes on purpose (injected humour
+            and the like).
+          </p>
+        </div>
+      </div>
+      <div class="container">
+        <div class="question-container">
+          <h3 id="q3">Where does it come from?</h3>
+          <button id="q3_toggle">show</button>
+        </div>
+        <div>
+          <p id="q3_ans">
+            Contrary to popular belief, Lorem Ipsum is not simply random text.
+            It has roots in a piece of classical Latin literature from 45 BC,
+            making it over 2000 years old. Richard McClintock, a Latin professor
+            at Hampden-Sydney College in Virginia, looked up one of the more
+            obscure Latin words, consectetur, from a Lorem Ipsum passage, and
+            going through the cites of the word in classical literature,
+            discovered the undoubtable source. Lorem Ipsum comes from sections
+            1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes
+            of Good and Evil) by Cicero, written in 45 BC. This book is a
+            treatise on the theory of ethics, very popular during the
+            Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit
+            amet..", comes from a line in section 1.10.32. The standard chunk of
+            Lorem Ipsum used since the 1500s is reproduced below for those
+            interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et
+            Malorum" by Cicero are also reproduced in their exact original form,
+            accompanied by English versions from the 1914 translation by H.
+            Rackham.
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

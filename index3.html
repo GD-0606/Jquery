@@ -1,0 +1,74 @@
+<!-- Form Validation -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Intermediate Level in jquery</title>
+    <style></style>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      $(document).ready(function () {
+        $("#gallery").css({
+          display: "flex",
+          "flex-direction": "column",
+          "align-items": "center",
+        });
+        $(".thumbnails").css({
+          display: "flex",
+          gap: "10px",
+          "flex-wrap": "wrap",
+        });
+        $(".thumbnails > img").css({
+          width: "200px",
+          height: "200px",
+          cursor: "pointer",
+          border: " 2px solid transparent",
+        });
+        $(".thumbnails > img").hover(
+          function () {
+            $(this).css({
+              border: "2px solid #000",
+            });
+          },
+          function () {
+            $(this).css({
+              border: "2px solid transparent",
+            });
+          }
+        );
+        $(".thumbnails > img").click(function () {
+          var url = $(this).attr("data-large");
+          $("#mainImage").attr("src", url);
+        });
+        $("#mainImage").css({
+          width: "800px",
+          height: "500px",
+          "margin-bottom": "20px",
+          border: "2px solid #000",
+        });
+        $("h1").css({
+          "text-align": "center",
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Image Gallery</h1>
+    <!-- Create a simple image gallery where clicking on a thumbnail updates a larger
+    display area with the clicked image. -->
+    <div id="gallery">
+      <img id="mainImage" src="./image1.jpg" alt="Display main image" />
+      <div class="thumbnails">
+        <img src="./image1.jpg" alt="Thumbnail 1" data-large="image1.jpg" />
+        <img src="./image2.jpg" alt="Thumbnail 2" data-large="image2.jpg" />
+        <img src="./image3.jpg" alt="Thumbnail 3" data-large="image3.jpg" />
+        <img src="./image4.jpg" alt="Thumbnail 4" data-large="image4.jpg" />
+      </div>
+    </div>
+  </body>
+</html>

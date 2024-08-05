@@ -1,0 +1,88 @@
+<!-- DOM Manipulation -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM Manipulation in Jquery</title>
+    <style>
+      .border {
+        border: 1px solid red;
+        margin-bottom: 12px;
+        padding: 10px;
+      }
+      #displayValue {
+        margin-top: 10px;
+        font-weight: bold;
+      }
+    </style>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      $(document).ready(function () {
+        $("#buttons").click((e) => {
+          console.log(e.target.id);
+          switch (e.target.id) {
+            case "show":
+              $("#lorem").show("slow");
+
+              break;
+            case "hide":
+              $("#lorem").hide("slow");
+
+              break;
+            case "toggle":
+              $("#lorem").toggle("slow");
+
+              break;
+
+            default:
+              break;
+          }
+        });
+        $("#display").click(() => {
+          var inputValue = $("#fullname").val();
+          $("#displayValue").text(inputValue);
+          $("#fullname").val("");
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1>DOM Manipulation in Jquery.</h1>
+    <!-- Create a button that, when clicked, hides a paragraph. -->
+    <div class="border">
+      <p id="lorem">
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry. Lorem Ipsum has been the industry's standard dummy text ever
+        since the 1500s, when an unknown printer took a galley of type and
+        scrambled it to make a type specimen book. It has survived not only five
+        centuries, but also the leap into electronic typesetting, remaining
+        essentially unchanged. It was popularised in the 1960s with the release
+        of Letraset sheets containing Lorem Ipsum passages, and more recently
+        with desktop publishing software like Aldus PageMaker including versions
+        of Lorem Ipsum.
+      </p>
+      <div id="buttons">
+        <button id="show" type="button">show</button>
+        <button id="hide" type="button">hide</button>
+        <button id="toggle" type="button">toggle</button>
+      </div>
+    </div>
+    <!-- Create an input field and a button. When the button is clicked, display the input value in a div below it. -->
+    <div class="border">
+      <input
+        type="text"
+        name="fullname"
+        id="fullname"
+        placeholder="enter your name here"
+      />
+
+      <button id="display" type="button">show</button>
+      <div id="displayValue"></div>
+    </div>
+  </body>
+</html>

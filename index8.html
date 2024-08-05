@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Advanced Level in jquery : Form Wizard</title>
+    <style>
+      #multistepform {
+        width: 70%;
+        margin: 0px auto;
+        padding: 40px;
+        background-color: #ffffff;
+        font-family: Raleway;
+      }
+      .header {
+        font-size: xx-large;
+        text-align: center;
+      }
+      .body {
+        position: relative;
+        width: 100%;
+      }
+      .footer {
+        text-align: center;
+        margin-top: 100px;
+        display: none;
+      }
+      .step {
+        width: 15px;
+        height: 15px;
+        border: none;
+        border-radius: 50%;
+        display: inline-block;
+        background-color: #bbbbbb;
+        margin-top: 3px;
+        opacity: 0.5;
+      }
+      .step.active {
+        opacity: 1;
+      }
+      .step.finish {
+        background-color: #04aa6d;
+      }
+      input {
+        width: 100%;
+        padding: 10px;
+        font-size: 17px;
+        border: 1px solid #aaaaaa;
+        margin: 20px 0px;
+      }
+      input.invalid {
+        background-color: #ffdddd;
+      }
+      .tab {
+        position: relative;
+        width: 100%;
+        display: none;
+      }
+      .tab > label {
+        font-size: x-large;
+      }
+      #button_container {
+        margin-top: 20px;
+        text-align: end;
+        display: none;
+      }
+    </style>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
+    <script>
+      $(document).ready(function () {
+        let currentTab = 0;
+        const tabsContainer = $(".tab");
+        const buttonsContainer = $("#button_container");
+        const footer = $(".footer");
+        buttonsContainer.show();
+        footer.show();
+        function showTab(index) {
+          const Tab = tabsContainer[index];
+          Tab.style.display = "inline";
+          if (index === 0) {
+            $("#prevBtn").hide();
+          } else {
+            $("#prevBtn").show();
+          }
+          if (index === tabsContainer.length - 1) {
+            $("#nextBtn").text("Submit");
+          } else {
+            $("#nextBtn").text("Next");
+          }
+          fixStepIndicator(index);
+        }
+        showTab(currentTab);
+        function validateTab() {
+          let valid = true;
+          const currentFormTab = tabsContainer[currentTab];
+          const inputFields = $(currentFormTab).find("input");
+          console.log(currentFormTab, inputFields);
+          inputFields.each(function (ind, inputField) {
+            console.log($(inputField).val());
+            if ($(inputField).val() === "") {
+              $(inputField).addClass("invalid");
+              valid = false;
+            } else {
+              $(inputField).removeClass("invalid");
+            }
+          });
+
+          if (valid) {
+            const currentStep = footer.find("span")[currentTab];
+            $(currentStep).addClass("finish");
+          }
+          console.log(valid);
+          return valid;
+        }
+
+        function fixStepIndicator(val) {
+          const stepContainer = footer.find("span");
+          stepContainer.removeClass("active");
+          $(stepContainer[val]).addClass("active");
+        }
+
+        function nextPrev(number) {
+          if (number === 1 && !validateTab()) {
+            return false;
+          }
+          tabsContainer[currentTab].style.display = "none";
+          currentTab = currentTab + number;
+          console.log(currentTab);
+          if (currentTab >= tabsContainer.length) {
+            $("#regForm").submit();
+            return;
+          }
+          showTab(currentTab);
+        }
+        $("#button_container").click(function (e) {
+          switch (e.target.id) {
+            case "prevBtn":
+              nextPrev(-1);
+              console.log(e.target);
+              break;
+            case "nextBtn":
+              nextPrev(1);
+              break;
+            default:
+              console.log(e.target);
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1>multi-step form wizard</h1>
+    <!-- Create a multi-step form wizard with validation on each step before proceeding to the next. -->
+    <div id="multistepform">
+      <div class="header">
+        <h3>Register</h3>
+      </div>
+      <div class="body">
+        <form id="regForm">
+          <!-- tab  1 -->
+          <div class="tab">
+            <label>Name : </label>
+            <br />
+            <input
+              type="text"
+              id="firstname"
+              name="firstname"
+              placeholder="First name.."
+            />
+            <input
+              type="text"
+              id="lastname"
+              name="lastname"
+              placeholder="Last name.."
+            />
+          </div>
+          <!-- tab 2 -->
+          <div class="tab">
+            <label>ContactInfo : </label>
+            <br />
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="email .."
+            />
+            <input
+              type="number"
+              id="phone_number"
+              name="phone_number"
+              placeholder="phone_number .."
+            />
+          </div>
+
+          <!-- tab 3 -->
+          <div class="tab">
+            <label>BirthInfo : </label>
+            <br />
+            <input type="number" id="dd" name="dd" placeholder="dd .." />
+            <input type="number" id="mm" name="mm" placeholder="mm .." />
+            <input type="number" id="yyyy" name="yyyy" placeholder="yyyy .." />
+          </div>
+
+          <!-- tab 4 -->
+          <div class="tab">
+            <label>LoginInfo : </label>
+            <br />
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="username .."
+            />
+            <input
+              type="number"
+              id="password"
+              name="password"
+              placeholder="password .."
+            />
+          </div>
+
+          <div id="button_container">
+            <button type="button" id="prevBtn">Previous</button>
+            <button type="button" id="nextBtn">Next</button>
+          </div>
+        </form>
+      </div>
+      <div class="footer">
+        <span class="step"> </span>
+        <span class="step"> </span>
+        <span class="step"> </span>
+        <span class="step"> </span>
+      </div>
+    </div>
+  </body>
+</html>

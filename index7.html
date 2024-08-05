@@ -1,0 +1,88 @@
+<!-- Modal Window -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Intermediate Level in jquery</title>
+    <style>
+      #modal {
+        position: fixed;
+        background-color: black;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        display: none;
+        opacity: 0.7;
+      }
+      .main {
+        width: 500px;
+        color: black;
+        background-color: antiquewhite;
+        padding: 5px;
+      }
+      .modalHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    </style>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#modalButton").click(function () {
+          const modal = $("#modal");
+          modal.css({
+            display: "flex",
+            "justify-content": "center",
+            "align-items": "center",
+          });
+          modal.show();
+        });
+        $("#closeModal").click(function () {
+          const modal = $("#modal");
+          modal.hide();
+        });
+        $("#modal").click(function (e) {
+          if($(e.target).is("#modal")){
+            $(this).hide()
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Modal Window</h1>
+    <!-- Create a modal window that opens when a button is clicked and closes when clicking outside the modal or on a close button. -->
+    <div>
+      <button id="modalButton">Open Modal</button>
+    </div>
+    <div id="modal">
+      <div class="main">
+        <div class="modalHeader">
+          <h4>Modal Name</h4>
+          <button id="closeModal">close</button>
+        </div>
+        <div class="modalBody">
+          <p style="text-align: justify">
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book. It has survived not
+            only five centuries, but also the leap into electronic typesetting,
+            remaining essentially unchanged. It was popularised in the 1960s
+            with the release of Letraset sheets containing Lorem Ipsum passages,
+            and more recently with desktop publishing software like Aldus
+            PageMaker including versions of Lorem Ipsum.
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
